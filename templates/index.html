@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Task Master</title>
+{% endblock %}
+
+
+{% block body %}
+<div class="uk-section uk-section-muted">
+    <div class="uk-container uk-text-center">
+        <h1>Task Master <span uk-icon="icon: calendar; ratio: 2"></span></h1>
+        <div class="uk-text-center">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+        </div>
+    </div>
+</div>
+
+
+<div class="uk-section uk-section-primary uk-preserve-color">
+    <div class="uk-container">
+        <div class="uk-panel uk-light uk-margin-medium">
+            <h3>Add New Task</h3>
+        </div>
+        <div class="uk-card uk-card-default uk-card-body">
+
+          <form class="uk-form-stacked" action="/" method="POST">
+
+            <div class="uk-margin">
+                <div class="uk-inline uk-width-1-1">
+                    <a class="uk-form-icon" href="#" uk-icon="icon: pencil"></a>
+                    <input class="uk-input"  name='content' id='content' placeholder="Enter your task..." type="text" required>
+                </div>
+            </div>
+
+            <div class="uk-margin uk-text-center" uk-margin>
+                <button type="submit" class="uk-button uk-button-danger uk-width-1-2 uk-margin-auto">Submit</button>
+            </div>
+
+          </form>
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="uk-section uk-section-secondary">
+    <div class="uk-container uk-overflow-auto ">
+      <div class="uk-panel uk-light uk-margin-medium">
+          <h3>Your Task List</h3>
+      </div>
+      <div class="uk-panel uk-card uk-card-body">
+        <table class="uk-table uk-table-hover uk-table-middle uk-table-divider ">
+            <thead>
+                <tr>
+                    <th>Task</th>
+                    <th>Added</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% if not tasks %}
+                <tr>
+                    <td>--</td>
+                    <td>--</td>
+                    <td>--</td>
+                </tr>
+                {% endif %}
+
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ task.content }}</td>
+                    <td>{{ task.date_created.date() }}</td>
+                    <td>
+                      <div class="uk-panel">
+                        <a href="/update/{{task.id}}" class="uk-button uk-button-danger uk-margin-small-right" type="button">Update</a>
+                        <a href="/delete/{{task.id}}" class="uk-button uk-button-danger" type="button">Delete</a>
+                      </div>
+                    </td>
+                </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+      </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
